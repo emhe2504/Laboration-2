@@ -54,3 +54,14 @@ a {
     font-size: 130%;
     color: rgb(78, 16, 60);
 }
+
+table {
+    display: grid;
+    width: 80%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 2px solid black;
+    padding: 2%;
+}
