@@ -57,8 +57,10 @@ a {
 
 table {
     display: grid;
-    width: 60%;
+    justify-self: center;
+    width: 40%;
     border-collapse: collapse;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #thead,
@@ -66,7 +68,38 @@ table {
     width: 100%;
 }
 
-th, td {
-    border: 2px solid black;
+td,
+th {
     padding: 2%;
+}
+
+#th1,
+#th2 {
+    text-align: left;
+    padding-left: 0;
+}
+
+tr {
+    width: 100%;
+    border-bottom: 0.5px solid rgb(78, 16, 60);
+}
+
+td:first-child,
+th:first-child {
+    width: 5%;
+} 
+
+td:nth-child(2),
+th:nth-child(2) {
+    width: 15%;
+}
+
+td:nth-child(3) {
+    width: 5%;
+    text-align: center;
+}
+
+th:nth-child(3) {
+    width: 3%;
+    text-align: center;
 }
