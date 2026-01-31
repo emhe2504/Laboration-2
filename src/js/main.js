@@ -11,6 +11,7 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
 
         createTable(data); //skickas vidare till denna funktion som anropas
         informationTable(data); //skickas vidare till denna funktion som anropas
+        sortKurs(data); //skickas vidare till denna funktion som anropas
 
     } catch (error) {
         console.error(error);
@@ -56,3 +57,24 @@ function informationTable(data) { //Hit kommer data-objektet
     });
     }
 }
+
+const selectKurs = document.getElementById("kurs-kod");
+
+if (selectKurs) {
+
+selectKurs.addEventListener("click", sortKurs(data));
+}
+
+function sortKurs(data) {
+    const kursArray = [];
+    
+        data.forEach(element => { 
+            const kurs = element.code;
+            kursArray.push(kurs);
+    });
+
+    kursArray.sort((a, b) => a - b);
+    console.log(kursArray);
+}
+
+//Fortsätt här! Måste lyckas sortera.. hur?
