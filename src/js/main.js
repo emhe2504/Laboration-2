@@ -18,12 +18,14 @@ async function fetchData() {
 
 function createTable(data) {
     const table = document.getElementById("table");
+    const tbody =document.getElementById("tbody");
 
     data.forEach(element => {
-        table.innerHTML += `
+        tbody.innerHTML += `
         <tr>
         <td>${element.code}</td>
         <td>${element.coursename}</td>
+        <td>${element.progression}</td>
         </tr>`;
     });
 }

@@ -57,8 +57,13 @@ a {
 
 table {
     display: grid;
-    width: 80%;
+    width: 60%;
     border-collapse: collapse;
+}
+
+#thead,
+#tbody {
+    width: 100%;
 }
 
 th, td {
