@@ -9,7 +9,9 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
         const newData = await fetch(link); //När fetchData anropas fetchas denna länk
         const data = await newData.json(); //data = objekt som ska ovandlas till JavaScript
 
-        createTable(data); //skickas vidare till nästa funktion som anropas
+        createTable(data); //skickas vidare till denna funktion som anropas
+        informationTable(data); //skickas vidare till denna funktion som anropas
+
     } catch (error) {
         console.error(error);
 
@@ -27,7 +29,8 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
 function createTable(data) { //Hit kommer data-objektet
     const tbody = document.getElementById("tbody");
 
-    data.forEach(element => { //För varje "element" i objektet ska nedstående ske (i tabell)
+    if(tbody) {
+        data.forEach(element => { //För varje "element" i objektet ska nedstående ske (i tabell)
         tbody.innerHTML += `
         <tr>
         <td>${element.code}</td>
@@ -35,4 +38,21 @@ function createTable(data) { //Hit kommer data-objektet
         <td>${element.progression}</td>
         </tr>`;
     });
+    }
+}
+
+//Ytterligare träning på detta för att lära mig mer :)
+
+function informationTable(data) { //Hit kommer data-objektet
+    const tbodyTwo = document.getElementById("tbody2");
+
+    if(tbodyTwo) {
+        data.forEach(element => { //För varje "element" i objektet ska nedstående ske (i tabell)
+        tbodyTwo.innerHTML += `
+        <tr>
+        <td>${element.coursename}</td>
+        <td><a href="${element.syllabus}">${element.syllabus}</a></td>
+        </tr>`;
+    });
+    }
 }
