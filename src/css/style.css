@@ -48,6 +48,10 @@ nav {
     list-style: none;
 }
 
+a {
+    color: black;
+}
+
 #start-link,
 #about-link {
     font-weight: bold;
@@ -63,6 +67,29 @@ nav {
     text-align: center;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin-bottom: 2%;
+}
+
+form {
+    justify-self: center;
+    margin-bottom: 2%;
+    width: 40%;
+}
+
+#form-list {
+    line-height: 2em;
+    list-style: none;
+    padding-left: 1%;
+}
+
+#sort-tab,
+#sok-tab {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: 600;
+    margin-right: 2%;
+}
+
+#sort-val {
+    padding: 2px;
 }
 
 #table1 {
