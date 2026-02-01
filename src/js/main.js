@@ -67,6 +67,10 @@ choiseList.addEventListener("change", () => {
     if (choiseList.value === "Kurskod-num") {
         sortTable1();
     }
+
+    if (choiseList.value === "Kurskod-let") {
+        sortTable2();
+    }
 });
 
 //Steg 2, vad är det som ska sorteras?
@@ -102,7 +106,32 @@ function sortTable1() {
     })
 }
 
-//Samma, men på bokstäver
+//Samma, men på bokstäver.
 
+function sortTable2() {
+    const tableRows = document.querySelectorAll("#tbody tr");
+
+    const rowArray = [];
+
+    tableRows.forEach(row => {
+        rowArray.push(row);
+    })
+
+     rowArray.sort((a, b) => {
+
+        const row1 = a.cells[0].textContent; 
+        const row2 = b.cells[0].textContent;
+
+        //Eftersom det inte är siffror jag ska jämföra fick jag googla och hittade localeCompare som jämför stängar.
+        
+        return row1.localeCompare(row2); //Hör jämförs alltså bokstäverna i början på koden, istället för siffrorna.
+    });
+
+    const tbody = document.getElementById("tbody");
+
+    rowArray.forEach(row => {
+        tbody.appendChild(row);
+    })
+}
 
    
