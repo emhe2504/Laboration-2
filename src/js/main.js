@@ -11,7 +11,6 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
 
         createTable(data); //skickas vidare till denna funktion som anropas
         informationTable(data); //skickas vidare till denna funktion som anropas
-        sortKurs(data); //skickas vidare till denna funktion som anropas
 
     } catch (error) {
         console.error(error);
@@ -30,15 +29,15 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
 function createTable(data) { //Hit kommer data-objektet
     const tbody = document.getElementById("tbody");
 
-    if(tbody) {
+    if (tbody) {
         data.forEach(element => { //För varje "element" i objektet ska nedstående ske (i tabell)
-        tbody.innerHTML += `
+            tbody.innerHTML += `
         <tr>
         <td>${element.code}</td>
         <td>${element.coursename}</td>
         <td>${element.progression}</td>
         </tr>`;
-    });
+        });
     }
 }
 
@@ -47,34 +46,63 @@ function createTable(data) { //Hit kommer data-objektet
 function informationTable(data) { //Hit kommer data-objektet
     const tbodyTwo = document.getElementById("tbody2");
 
-    if(tbodyTwo) {
+    if (tbodyTwo) {
         data.forEach(element => { //För varje "element" i objektet ska nedstående ske (i tabell)
-        tbodyTwo.innerHTML += `
+            tbodyTwo.innerHTML += `
         <tr>
         <td>${element.coursename}</td>
         <td><a href="${element.syllabus}">${element.syllabus}</a></td>
         </tr>`;
-    });
+        });
     }
 }
 
-const selectKurs = document.getElementById("kurs-kod");
+//Steg för steg, vad vill jag göra?
 
-if (selectKurs) {
+//Steg 1, vad är det som ska trigga sorteringen?
 
-selectKurs.addEventListener("click", sortKurs(data));
-}
+const choiseList = document.getElementById("sort-val");
 
-function sortKurs(data) {
-    const kursArray = [];
-    
-        data.forEach(element => { 
-            const kurs = element.code;
-            kursArray.push(kurs);
+choiseList.addEventListener("change", () => {
+    if (choiseList.value === "Kurskod-num") {
+        sortTable1();
+    }
+});
+
+//Steg 2, vad är det som ska sorteras?
+
+function sortTable1() {
+    const tableRows = document.querySelectorAll("#tbody tr");
+
+    //.sort fungerar endast på array, så raderna behöver placeras i en sådan
+
+    const rowArray = [];
+
+    tableRows.forEach(row => {
+        rowArray.push(row);
+    })
+
+    rowArray.sort((a, b) => {
+
+        const row1 = a.cells[0].textContent; //Det är textcontent i varje cell[0] som ska sorteras.
+        const row2 = b.cells[0].textContent;
+
+        const code1 = parseInt(row1.slice(2, 5)); //I detta fall vill jag att de ska sorteras efter siffrorna i mitten.
+        const code2 = parseInt(row2.slice(2, 5));
+
+        return code1 - code2; //Returnera siffrorna de ska sorteras efter
     });
 
-    kursArray.sort((a, b) => a - b);
-    console.log(kursArray);
+    //Innehållet i rowArray måste hamna i tabellen.
+
+    const tbody = document.getElementById("tbody");
+
+    rowArray.forEach(row => {
+        tbody.appendChild(row);
+    })
 }
 
-//Fortsätt här! Måste lyckas sortera.. hur?
+//Samma, men på bokstäver
+
+
+   
