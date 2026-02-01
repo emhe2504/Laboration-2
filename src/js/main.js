@@ -71,6 +71,10 @@ choiseList.addEventListener("change", () => {
     if (choiseList.value === "Kurskod-let") {
         sortTable2();
     }
+
+    if (choiseList.value === "Progression") {
+        sortTable4();
+    }
 });
 
 //Steg 2, vad är det som ska sorteras?
@@ -134,4 +138,28 @@ function sortTable2() {
     })
 }
 
-   
+   //Samma, men på progression.
+
+function sortTable4() {
+    const tableRows = document.querySelectorAll("#tbody tr");
+
+    const rowArray = [];
+
+    tableRows.forEach(row => {
+        rowArray.push(row);
+    })
+
+     rowArray.sort((a, b) => {
+
+        const row1 = a.cells[2].textContent; 
+        const row2 = b.cells[2].textContent;
+        
+        return row1.localeCompare(row2);
+    });
+
+    const tbody = document.getElementById("tbody");
+
+    rowArray.forEach(row => {
+        tbody.appendChild(row);
+    })
+}
