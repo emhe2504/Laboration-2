@@ -71,7 +71,9 @@ choiseList.addEventListener("change", () => {
     if (choiseList.value === "Kurskod-let") {
         sortTable2();
     }
-
+    if (choiseList.value === "Kursnamn") {
+        sortTable3();
+    }
     if (choiseList.value === "Progression") {
         sortTable4();
     }
@@ -129,6 +131,32 @@ function sortTable2() {
         //Eftersom det inte är siffror jag ska jämföra fick jag googla och hittade localeCompare som jämför stängar.
         
         return row1.localeCompare(row2); //Hör jämförs alltså bokstäverna i början på koden, istället för siffrorna.
+    });
+
+    const tbody = document.getElementById("tbody");
+
+    rowArray.forEach(row => {
+        tbody.appendChild(row);
+    })
+}
+
+//Samma, men på kursnamn.
+
+function sortTable3() {
+    const tableRows = document.querySelectorAll("#tbody tr");
+
+    const rowArray = [];
+
+    tableRows.forEach(row => {
+        rowArray.push(row);
+    })
+
+     rowArray.sort((a, b) => {
+
+        const row1 = a.cells[1].textContent; 
+        const row2 = b.cells[1].textContent;
+        
+        return row1.localeCompare(row2);
     });
 
     const tbody = document.getElementById("tbody");
