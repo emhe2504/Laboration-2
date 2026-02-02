@@ -2,6 +2,8 @@
 
 document.addEventListener("DOMContentLoaded", fetchData); //När DOM-laddat, anropa fetchData
 
+let allRows = [];
+
 async function fetchData() { //async - denna funktion returnerar ett promise i form av ett objekt
     const link = "https://webbutveckling.miun.se/files/ramschema.json";
 
@@ -11,6 +13,8 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
 
         createTable(data); //skickas vidare till denna funktion som anropas
         informationTable(data); //skickas vidare till denna funktion som anropas
+
+        allRows = Array.from(document.querySelectorAll("#tbody tr")); //spara raderna i allRows för framtiden
 
     } catch (error) {
         console.error(error);
@@ -59,84 +63,80 @@ function informationTable(data) { //Hit kommer data-objektet
 
 //Steg för steg, vad vill jag göra?
 
-const choiseList = document.getElementById("sort-val");
+function createArray() { //Steg 1, skapa arrar. Sort fungerar på array.
+    rowArray.length = 0; //se till att arrayen är tom när den fylls på
 
-choiseList.addEventListener("change", () => { //Steg 1, vad är det som ska trigga sorteringen?
+     rowArray.push(...allRows);
+}
 
-    const tableRows = document.querySelectorAll("#tbody tr"); //Steg 2, vad är det som ska sorteras?
-    const rowArray = [];
+const choiceList = document.getElementById("sort-val");
+const tbody = document.getElementById("tbody"); //Tabellen
+const rowArray = [];
 
-    tableRows.forEach(row => { //.sort fungerar endast på array, så raderna behöver placeras i en sådan
-        rowArray.push(row);
-    })
+choiceList.addEventListener("change", () => { //Steg 2, lyssna på klick, trigga array-skapande
 
+    createArray();
 
-    if (choiseList.value === "Kurskod-num") { //sortera på kurskod-siffror
+    if (choiceList.value === "Kurskod-num") { //sortera på kurskod-siffror
          rowArray.sort((a, b) => {
 
-        const row1 = a.cells[0].textContent; //Det är textcontent i varje cell[0] som ska sorteras.
-        const row2 = b.cells[0].textContent;
-
-        const code1 = parseInt(row1.slice(2, 5)); //I detta fall vill jag att de ska sorteras efter siffrorna i mitten.
-        const code2 = parseInt(row2.slice(2, 5));
+        const code1 = parseInt(a.cells[0].textContent.slice(2, 5)); //Bara siffrorna i mitten (slice)
+        const code2 = parseInt(b.cells[0].textContent.slice(2, 5));
 
         return code1 - code2; //Returnera siffrorna de ska sorteras efter
     });
-
-    const tbody = document.getElementById("tbody"); //Innehållet i rowArray måste hamna i tabellen.
-
-    rowArray.forEach(row => {
-        tbody.appendChild(row);
-    })
     }
 
-    if (choiseList.value === "Kurskod-let") { //sortera på kurskod-bokstäver
-         rowArray.sort((a, b) => {
+    if (choiceList.value === "Kurskod-let") { //sortera på kurskod-bokstäver
+         rowArray.sort((a, b) => 
 
-        const row1 = a.cells[0].textContent; 
-        const row2 = b.cells[0].textContent;
-
-        //Eftersom det inte är siffror jag ska jämföra fick jag googla och hittade localeCompare som jämför stängar.
-        
-        return row1.localeCompare(row2); //Hör jämförs alltså bokstäverna i början på koden, istället för siffrorna.
-    });
-
-    const tbody = document.getElementById("tbody");
-
-    rowArray.forEach(row => {
-        tbody.appendChild(row);
-    })
+        a.cells[0].textContent.localeCompare(b.cells[0].textContent) //localeCompare jämför stängar istället för siffror
+    );
     }
 
-    if (choiseList.value === "Kursnamn") { //sortera på kursnamn
-        rowArray.sort((a, b) => {
+    if (choiceList.value === "Kursnamn") { //sortera på kursnamn
+        rowArray.sort((a, b) => 
 
-        const row1 = a.cells[1].textContent; 
-        const row2 = b.cells[1].textContent;
-        
-        return row1.localeCompare(row2);
-    });
-
-    const tbody = document.getElementById("tbody");
-
-    rowArray.forEach(row => {
-        tbody.appendChild(row);
-    })
+        a.cells[1].textContent.localeCompare(b.cells[1].textContent)
+    );
     }
 
-    if (choiseList.value === "Progression") { //sortera på progression
-        rowArray.sort((a, b) => {
+    if (choiceList.value === "Progression") { //sortera på progression
+        rowArray.sort((a, b) => 
 
-        const row1 = a.cells[2].textContent; 
-        const row2 = b.cells[2].textContent;
-        
-        return row1.localeCompare(row2);
-    });
+        a.cells[2].textContent.localeCompare(b.cells[2].textContent)
+    );
+    }
 
-    const tbody = document.getElementById("tbody");
-
-    rowArray.forEach(row => {
+    rowArray.forEach(row => { //Tillbaka in i tabellen
         tbody.appendChild(row);
     })
+
+    if (choiceList.value === "Orginalordning") { //tillbaka till orginal
+        allRows.forEach(row => { 
+        tbody.appendChild(row);
+    });
     }
 });
+
+
+document.getElementById("sok").addEventListener("input", () => {
+    createArray();
+    filterRows();
+});
+
+function filterRows() {
+    const searchWord = document.getElementById("sok").value.toLowerCase();
+
+    const filteredRows = rowArray.filter((row) => 
+    row.cells[0].textContent.toLowerCase().includes(searchWord) ||
+    row.cells[1].textContent.toLowerCase().includes(searchWord) ||
+    row.cells[2].textContent.toLowerCase().includes(searchWord)
+);
+    showRows(filteredRows);
+}
+
+function showRows(rowArray) {
+    tbody.innerHTML = "";
+    rowArray.forEach(row => tbody.appendChild(row));
+}
