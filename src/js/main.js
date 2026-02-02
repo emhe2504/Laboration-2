@@ -59,40 +59,20 @@ function informationTable(data) { //Hit kommer data-objektet
 
 //Steg för steg, vad vill jag göra?
 
-//Steg 1, vad är det som ska trigga sorteringen?
-
 const choiseList = document.getElementById("sort-val");
 
-choiseList.addEventListener("change", () => {
-    if (choiseList.value === "Kurskod-num") {
-        sortTable1();
-    }
+choiseList.addEventListener("change", () => { //Steg 1, vad är det som ska trigga sorteringen?
 
-    if (choiseList.value === "Kurskod-let") {
-        sortTable2();
-    }
-    if (choiseList.value === "Kursnamn") {
-        sortTable3();
-    }
-    if (choiseList.value === "Progression") {
-        sortTable4();
-    }
-});
-
-//Steg 2, vad är det som ska sorteras?
-
-function sortTable1() {
-    const tableRows = document.querySelectorAll("#tbody tr");
-
-    //.sort fungerar endast på array, så raderna behöver placeras i en sådan
-
+    const tableRows = document.querySelectorAll("#tbody tr"); //Steg 2, vad är det som ska sorteras?
     const rowArray = [];
 
-    tableRows.forEach(row => {
+    tableRows.forEach(row => { //.sort fungerar endast på array, så raderna behöver placeras i en sådan
         rowArray.push(row);
     })
 
-    rowArray.sort((a, b) => {
+
+    if (choiseList.value === "Kurskod-num") { //sortera på kurskod-siffror
+         rowArray.sort((a, b) => {
 
         const row1 = a.cells[0].textContent; //Det är textcontent i varje cell[0] som ska sorteras.
         const row2 = b.cells[0].textContent;
@@ -103,27 +83,15 @@ function sortTable1() {
         return code1 - code2; //Returnera siffrorna de ska sorteras efter
     });
 
-    //Innehållet i rowArray måste hamna i tabellen.
-
-    const tbody = document.getElementById("tbody");
+    const tbody = document.getElementById("tbody"); //Innehållet i rowArray måste hamna i tabellen.
 
     rowArray.forEach(row => {
         tbody.appendChild(row);
     })
-}
+    }
 
-//Samma, men på bokstäver.
-
-function sortTable2() {
-    const tableRows = document.querySelectorAll("#tbody tr");
-
-    const rowArray = [];
-
-    tableRows.forEach(row => {
-        rowArray.push(row);
-    })
-
-     rowArray.sort((a, b) => {
+    if (choiseList.value === "Kurskod-let") { //sortera på kurskod-bokstäver
+         rowArray.sort((a, b) => {
 
         const row1 = a.cells[0].textContent; 
         const row2 = b.cells[0].textContent;
@@ -138,20 +106,10 @@ function sortTable2() {
     rowArray.forEach(row => {
         tbody.appendChild(row);
     })
-}
+    }
 
-//Samma, men på kursnamn.
-
-function sortTable3() {
-    const tableRows = document.querySelectorAll("#tbody tr");
-
-    const rowArray = [];
-
-    tableRows.forEach(row => {
-        rowArray.push(row);
-    })
-
-     rowArray.sort((a, b) => {
+    if (choiseList.value === "Kursnamn") { //sortera på kursnamn
+        rowArray.sort((a, b) => {
 
         const row1 = a.cells[1].textContent; 
         const row2 = b.cells[1].textContent;
@@ -164,20 +122,10 @@ function sortTable3() {
     rowArray.forEach(row => {
         tbody.appendChild(row);
     })
-}
+    }
 
-   //Samma, men på progression.
-
-function sortTable4() {
-    const tableRows = document.querySelectorAll("#tbody tr");
-
-    const rowArray = [];
-
-    tableRows.forEach(row => {
-        rowArray.push(row);
-    })
-
-     rowArray.sort((a, b) => {
+    if (choiseList.value === "Progression") { //sortera på progression
+        rowArray.sort((a, b) => {
 
         const row1 = a.cells[2].textContent; 
         const row2 = b.cells[2].textContent;
@@ -190,4 +138,5 @@ function sortTable4() {
     rowArray.forEach(row => {
         tbody.appendChild(row);
     })
-}
+    }
+});
