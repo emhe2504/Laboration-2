@@ -14,7 +14,7 @@ async function fetchData() { //async - denna funktion returnerar ett promise i f
         createTable(data); //skickas vidare till denna funktion som anropas
         informationTable(data); //skickas vidare till denna funktion som anropas
 
-        allRows = Array.from(document.querySelectorAll("#tbody tr")); //spara raderna i allRows för framtiden
+        allRows = Array.from(document.querySelectorAll("#tbody tr")); //spara raderna i allRows för framtiden (en array)
 
     } catch (error) {
         console.error(error);
@@ -63,14 +63,14 @@ function informationTable(data) { //Hit kommer data-objektet
 
 //Steg för steg, vad vill jag göra?
 
-function createArray() { //Steg 1, skapa arrar. Sort fungerar på array.
+function createArray() { //Steg 1, skapa array. (.sort fungerar på array)
     rowArray.length = 0; //se till att arrayen är tom när den fylls på
 
-     rowArray.push(...allRows);
+     rowArray.push(...allRows); //pushas med allRows för att filtrera ska fungera
 }
 
 const choiceList = document.getElementById("sort-val");
-const tbody = document.getElementById("tbody"); //Tabellen
+const tbody = document.getElementById("tbody"); 
 const rowArray = [];
 
 choiceList.addEventListener("change", () => { //Steg 2, lyssna på klick, trigga array-skapande
@@ -112,7 +112,7 @@ choiceList.addEventListener("change", () => { //Steg 2, lyssna på klick, trigga
         tbody.appendChild(row);
     })
 
-    if (choiceList.value === "Orginalordning") { //tillbaka till orginal
+    if (choiceList.value === "Originalordning") { //Tillbaka till orginal
         allRows.forEach(row => { 
         tbody.appendChild(row);
     });
@@ -120,12 +120,12 @@ choiceList.addEventListener("change", () => { //Steg 2, lyssna på klick, trigga
 });
 
 
-document.getElementById("sok").addEventListener("input", () => {
+document.getElementById("sok").addEventListener("input", () => { //Eventlyssnare på input triggar två funktioner
     createArray();
     filterRows();
 });
 
-function filterRows() {
+function filterRows() { //filtrera bland rader/celler 
     const searchWord = document.getElementById("sok").value.toLowerCase();
 
     const filteredRows = rowArray.filter((row) => 
@@ -133,10 +133,10 @@ function filterRows() {
     row.cells[1].textContent.toLowerCase().includes(searchWord) ||
     row.cells[2].textContent.toLowerCase().includes(searchWord)
 );
-    showRows(filteredRows);
+    showRows(filteredRows); //och skicka vidare
 }
 
-function showRows(rowArray) {
+function showRows(rowArray) { //bestämmer vilka rader som kommer ut
     tbody.innerHTML = "";
     rowArray.forEach(row => tbody.appendChild(row));
 }
