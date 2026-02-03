@@ -1,27 +1,65 @@
 <!doctype html>
 <html lang="sv">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Laboration 2</title>
-    <link rel="stylesheet" href="/src/css/style.css">
-  </head>
-  <body>
-    <div id="container">
-      <header>
-        <h1>Startsida</h1>
-        <nav>
-          <ul>
-            <li><a href="/">Startsida</a></li>
-            <li><a href="/about.html">Om</a></li>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Laboration 2</title>
+  <link rel="stylesheet" href="/src/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <header>
+      <h1>Laboration 2 - ECMAscript</h1>
+      <nav>
+        <ul id="nav-list">
+          <li><a id="start-link" href="/">Startsida</a></li>
+          <li><a id="about-link" href="/about.html">Om kurserna</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <h2>Startsida</h2>
+      <section id="table-section">
+        <h3 id="section-head">Webbutvecklingsprogrammet, MittUniversitetet, Ramschema:</h3>
+        <form>
+          <ul id="form-list">
+            <li>
+          <label for="sort-val" id="sort-tab">Sortera tabell: </label>
+          <select name="sort-list" id="sort-val">
+            <option value="Sortby">Sortera efter:</option>
+            <option value="Kurskod-num" id="kurskod-num">Kurskod (siffror)</option>
+            <option value="Kurskod-let" id="kurskod-let">Kurskod (bokstäver)</option>
+            <option value="Kursnamn" id="kursnamn">Kursnamn</option>
+            <option value="Progression" id="progression">Progression</option>
+            <option value="Originalordning" id="originalordning">Originalordning</option>
+          </select>
+          </li>
+          <li>
+          <label for="sok" id="sok-tab">Sök i tabell: </label>
+          <input type="text" id="sok" placeholder="Sök..">
+          </li>
           </ul>
-        </nav>
-        <main>
-          <h2>Startsida</h2>
-        </main>
-        <footer></footer>
-      </header>
-    </div>
-    <script type="module" src="/src/js/main.js"></script>
-  </body>
+        </form>
+        <table id="table1">
+          <thead id="thead">
+            <tr>
+              <th id="th1">Kurskod:</th>
+              <th id="th2">Kursnamn:</th>
+              <th>Progression:</th>
+            </tr>
+          </thead>
+          <tbody id="tbody"></tbody>
+        </table>
+      </section>
+    </main>
+    <footer>
+      <h4>Webbutvecklingsprogrammet, kurs DT211G - Frontend-baserad webbutveckling</h4>
+      <p>2026 - Emma Heikkinen</p>
+    </footer>
+  </div>
+  <script type="module" src="/src/js/main.js"></script>
+</body>
+
 </html>

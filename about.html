@@ -9,18 +9,34 @@
   <body>
     <div id="container">
       <header>
-        <h1>Startsida</h1>
+        <h1>Laboration 2 - ECMAscript</h1>
         <nav>
-          <ul>
-            <li><a href="/">Startsida</a></li>
-            <li><a href="/about.html">Om</a></li>
+          <ul id="nav-list">
+            <li><a id="start-link" href="/">Startsida</a></li>
+            <li><a id="about-link" href="/about.html">Om kurserna</a></li>
           </ul>
         </nav>
+        </header>
         <main>
-          <h2>Om</h2>
+          <h2>Om kurserna</h2>
+          <section id="about-section">
+            <h3 id="section-head">Informationslänkar för varje kurs:</h3>
+            <p id="section-text">Klicka på respektive länk för information om kursen.</p>
+            <table id="table2">
+              <thead id="thead">
+                <tr>
+                <th id="th3">Kursnamn:</th>
+                <th id="th4">Informationslänk:</th>
+                </tr>
+              </thead>
+              <tbody id="tbody2"></tbody>
+            </table>
+          </section>
         </main>
-        <footer></footer>
-      </header>
+        <footer>
+          <h4>Webbutvecklingsprogrammet, kurs DT211G - Frontend-baserad webbutveckling</h4>
+          <p>2026 - Emma Heikkinen</p>
+        </footer>
     </div>
     <script type="module" src="/src/js/main.js"></script>
   </body>
