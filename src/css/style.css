@@ -70,6 +70,7 @@ a {
 }
 
 form {
+    display: grid;
     justify-self: center;
     margin-bottom: 2%;
     width: 100%;
@@ -92,6 +93,11 @@ form {
 
 #sort-val {
     padding: 2px;
+}
+
+#table-section,
+#about-section {
+    display: grid;
 }
 
 #table1 {
